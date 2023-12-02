@@ -2,7 +2,7 @@ using AdventOfCodeSupport;
 
 namespace AdventOfCode._2023;
 
-public sealed class Day01 : AdventBase
+public class Day01 : AdventBase
 {
     protected override object InternalPart1()
     {
