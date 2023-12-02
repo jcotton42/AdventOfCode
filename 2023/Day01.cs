@@ -6,11 +6,91 @@ public sealed class Day01 : AdventBase
 {
     protected override object InternalPart1()
     {
-        throw new NotImplementedException();
+        int sum = 0;
+
+        foreach (var line in Input.Lines)
+        {
+            int first = int.MinValue;
+            int last = int.MinValue;
+
+            int i = 0;
+            for (; i < line.Length; i++)
+            {
+                if (line[i] is >= '0' and <= '9')
+                {
+                    first = last = line[i] - '0';
+                    break;
+                }
+            }
+
+            for (; i < line.Length; i++)
+            {
+                if (line[i] is >= '0' and <= '9')
+                {
+                    last = line[i] - '0';
+                }
+            }
+
+            sum += (first * 10) + last;
+        }
+
+        return sum;
     }
 
     protected override object InternalPart2()
     {
-        throw new NotImplementedException();
+        int sum = 0;
+
+        foreach (var line in Input.Lines)
+        {
+            var span = line.AsSpan();
+
+            int first = 0;
+            int last = 0;
+            while (!span.IsEmpty)
+            {
+                if (TryExtractDigit(span, out var digit, out var length))
+                {
+                    span = span[1..];
+                    first = last = digit;
+                    break;
+                }
+
+                span = span[1..];
+            }
+
+            while (!span.IsEmpty)
+            {
+                if (TryExtractDigit(span, out var digit, out var length))
+                {
+                    last = digit;
+                }
+
+                span = span[1..];
+            }
+
+            sum += (first * 10) + last;
+        }
+
+        return sum;
+    }
+
+    private static bool TryExtractDigit(ReadOnlySpan<char> s, out int digit, out int length)
+    {
+        (digit, length, bool result) = s switch
+        {
+            [>= '0' and <= '9' and var d, ..] => (d - '0', 1, true),
+            ['o', 'n', 'e', ..] => (1, 3, true),
+            ['t', 'w', 'o', ..] => (2, 3, true),
+            ['t', 'h', 'r', 'e', 'e', ..] => (3, 5, true),
+            ['f', 'o', 'u', 'r', ..] => (4, 4, true),
+            ['f', 'i', 'v', 'e', ..] => (5, 4, true),
+            ['s', 'i', 'x', ..] => (6, 3, true),
+            ['s', 'e', 'v', 'e', 'n', ..] => (7, 5, true),
+            ['e', 'i', 'g', 'h', 't', ..] => (8, 5, true),
+            ['n', 'i', 'n', 'e', ..] => (9, 4, true),
+            _ => (0, 0, false),
+        };
+        return result;
     }
 }
