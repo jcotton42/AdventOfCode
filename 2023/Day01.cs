@@ -1,3 +1,5 @@
+using System;
+
 using AdventOfCodeSupport;
 
 namespace AdventOfCode._2023;
@@ -49,7 +51,7 @@ public class Day01 : AdventBase
             int last = 0;
             while (!span.IsEmpty)
             {
-                if (TryExtractDigit(span, out var digit, out var length))
+                if (TryExtractDigit(span, out var digit))
                 {
                     span = span[1..];
                     first = last = digit;
@@ -61,7 +63,7 @@ public class Day01 : AdventBase
 
             while (!span.IsEmpty)
             {
-                if (TryExtractDigit(span, out var digit, out var length))
+                if (TryExtractDigit(span, out var digit))
                 {
                     last = digit;
                 }
@@ -75,21 +77,21 @@ public class Day01 : AdventBase
         return sum;
     }
 
-    private static bool TryExtractDigit(ReadOnlySpan<char> s, out int digit, out int length)
+    private static bool TryExtractDigit(ReadOnlySpan<char> s, out int digit)
     {
-        (digit, length, bool result) = s switch
+        (digit, bool result) = s switch
         {
-            [>= '0' and <= '9' and var d, ..] => (d - '0', 1, true),
-            ['o', 'n', 'e', ..] => (1, 3, true),
-            ['t', 'w', 'o', ..] => (2, 3, true),
-            ['t', 'h', 'r', 'e', 'e', ..] => (3, 5, true),
-            ['f', 'o', 'u', 'r', ..] => (4, 4, true),
-            ['f', 'i', 'v', 'e', ..] => (5, 4, true),
-            ['s', 'i', 'x', ..] => (6, 3, true),
-            ['s', 'e', 'v', 'e', 'n', ..] => (7, 5, true),
-            ['e', 'i', 'g', 'h', 't', ..] => (8, 5, true),
-            ['n', 'i', 'n', 'e', ..] => (9, 4, true),
-            _ => (0, 0, false),
+            [>= '0' and <= '9' and var d, ..] => (d - '0', true),
+            ['o', 'n', 'e', ..] => (1, true),
+            ['t', 'w', 'o', ..] => (2, true),
+            ['t', 'h', 'r', 'e', 'e', ..] => (3, true),
+            ['f', 'o', 'u', 'r', ..] => (4, true),
+            ['f', 'i', 'v', 'e', ..] => (5, true),
+            ['s', 'i', 'x', ..] => (6, true),
+            ['s', 'e', 'v', 'e', 'n', ..] => (7, true),
+            ['e', 'i', 'g', 'h', 't', ..] => (8, true),
+            ['n', 'i', 'n', 'e', ..] => (9, true),
+            _ => (0, false),
         };
         return result;
     }
