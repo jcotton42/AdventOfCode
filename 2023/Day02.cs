@@ -88,6 +88,13 @@ public class Day02 : AdventBase
 
     protected override object InternalPart2()
     {
-        throw new NotImplementedException();
+        int powerSum = 0;
+        foreach (string line in Input.Lines)
+        {
+            (_, int red, int green, int blue) = ParseGame(line);
+            powerSum += red * green * blue;
+        }
+
+        return powerSum;
     }
 }
