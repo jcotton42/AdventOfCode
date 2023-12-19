@@ -1,7 +1,7 @@
 ﻿using AdventOfCodeSupport;
 
 var solutions = new AdventSolutions();
-var day = solutions.GetDay(2023, 3);
+var day = solutions.GetDay(2023, 4);
 await day.DownloadInputAsync();
 // var day3 = solutions.GetDay(2023, 3);
 // var day4 = solutions.First(x => x.Year == 2023 && x.Day == 4);
